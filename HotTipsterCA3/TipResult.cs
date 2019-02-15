@@ -12,5 +12,13 @@ namespace HotTipsterCA3
         public DateTime RaceDate { get; set; }
         public decimal ResultValue { get; set; }
         public bool Won { get; set; }
+
+        public override string ToString()
+        {
+            return $"{nameof(Course)}: {Course}{Environment.NewLine}" +
+                   $"{nameof(RaceDate)}: {RaceDate}{Environment.NewLine}" +
+                   $"{nameof(ResultValue)}: {ResultValue}{Environment.NewLine}" +
+                   $"{nameof(Won)}: {Won}{Environment.NewLine}";
+        }
     }
 }

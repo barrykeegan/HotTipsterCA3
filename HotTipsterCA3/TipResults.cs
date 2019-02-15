@@ -28,7 +28,7 @@ namespace HotTipsterCA3
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            Results.Clear();
         }
 
         public bool Contains(TipResult item)

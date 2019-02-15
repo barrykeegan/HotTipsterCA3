@@ -18,6 +18,13 @@ namespace HotTipsterCA3.Tests
             results.Add(new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true });
         }
 
+
+        [TestCleanup()]
+        public void ResetResults()
+        {
+            Results.Clear();
+        }
+
         [TestMethod()]
         public void AddTest()
         {

@@ -70,7 +70,24 @@ namespace HotTipsterCA3.Tests
             Assert.AreEqual(1, Results.Count);
             AddRemainingResults();
             Assert.AreEqual(36, Results.Count);
-            Results.Add(null);
+            try
+            {
+                Results.Add(null);
+                //Execution should not make it to next line as exception should be thrown
+                //If it does, test should fail
+                Assert.Fail("No exception was thrown");
+            }
+            catch (ArgumentNullException e)
+            {
+                //Catches appropriate exception and test passes
+                StringAssert.Contains(e.Message, "Attempted to add null item to list");
+            }
+            catch (Exception)
+            {
+                //Catch base exception in case exception other than expected is thrown
+                //test fails in that case
+                Assert.Fail("Unexpected exception was thrown");
+            }
             Assert.AreEqual(36, Results.Count);
         }
 

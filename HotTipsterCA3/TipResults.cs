@@ -23,6 +23,10 @@ namespace HotTipsterCA3
 
         public void Add(TipResult item)
         {
+            if(item==null)
+            {
+                throw new ArgumentNullException("Attempted to add null item to list");
+            }
             Results.Add(item);
         }
 

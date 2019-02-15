@@ -70,13 +70,21 @@ namespace HotTipsterCA3.Tests
             Assert.AreEqual(1, Results.Count);
             AddRemainingResults();
             Assert.AreEqual(36, Results.Count);
+            Results.Add(null);
+            Assert.AreEqual(36, Results.Count);
         }
 
         [TestMethod()]
         public void ClearTest()
         {
+            Assert.AreEqual(0, Results.Count);
+            AddFirstResult();
             Results.Clear();
             Assert.AreEqual(0, Results.Count);
+            AddRemainingResults();
+            Results.Clear();
+            Assert.AreEqual(0, Results.Count);
+
         }
 
         [TestMethod()]

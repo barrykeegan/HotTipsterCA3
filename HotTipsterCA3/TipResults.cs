@@ -23,7 +23,7 @@ namespace HotTipsterCA3
 
         public void Add(TipResult item)
         {
-            throw new NotImplementedException();
+            Results.Add(item);
         }
 
         public void Clear()

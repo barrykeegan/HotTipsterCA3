@@ -16,7 +16,9 @@ namespace HotTipsterCA3.Tests
         [TestMethod()]
         public void AddTest()
         {
-            Assert.Fail();
+            TipResults Results = new TipResults();
+            Results.Add(new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true });
+            Assert.AreEqual(1, Results.Count);
         }
 
         [TestMethod()]

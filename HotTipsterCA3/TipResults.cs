@@ -11,7 +11,13 @@ namespace HotTipsterCA3
     {
         private List<TipResult> Results = new List<TipResult>();
 
-        public int Count => throw new NotImplementedException();
+        public int Count
+        {
+            get
+            {
+                return Results.Count;
+            }
+        }
 
         public bool IsReadOnly => throw new NotImplementedException();
 

@@ -13,9 +13,9 @@ namespace HotTipsterCA3.Tests
     {
         private static TipResults Results = new TipResults();
 
-        private void AddFirstResult(TipResults results)
+        private void AddFirstResult()
         {
-            results.Add(new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true });
+            Results.Add(new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true });
         }
 
 
@@ -28,7 +28,7 @@ namespace HotTipsterCA3.Tests
         [TestMethod()]
         public void AddTest()
         {
-            AddFirstResult(Results);
+            AddFirstResult();
             Assert.AreEqual(1, Results.Count);
         }
 

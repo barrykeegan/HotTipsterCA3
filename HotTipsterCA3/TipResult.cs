@@ -31,8 +31,7 @@ namespace HotTipsterCA3
             //Earliest tip results available are from 2016, this value is added to App.Config AppSettings key 
             //"earliestTipYear". This allows for config file to be edited simply, to allow for Tips from 
             //earlier years.
-            //Also tipResults from the future can't be known, so if RaceDate is greater than now it can't be valid data
-            
+            //Also tipResults from the future can't be known, so if RaceDate is greater than now it can't be valid data            
             if (RaceDate.Year < int.Parse(ConfigurationManager.AppSettings["earliestTipYear"]) || RaceDate > DateTime.Now)
             {
                 return false;

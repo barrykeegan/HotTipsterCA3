@@ -27,6 +27,10 @@ namespace HotTipsterCA3
             {
                 throw new ArgumentNullException("Attempted to add null item to list");
             }
+            if(!item.IsValidResult())
+            {
+                throw new ArgumentException("One or more properties have invalid data assigned" + Environment.NewLine + item.ToString());
+            }
             Results.Add(item);
         }
 

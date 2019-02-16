@@ -29,7 +29,39 @@ namespace HotTipsterCA3.Tests
         [TestMethod()]
         public void IsValidResult()
         {
-            TipResult t = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
+            TipResult t;
+            t = new TipResult();
+            //Properties of TipResult will initialise to invalid values
+            Assert.AreEqual(false, t.IsValidResult());
+            t.Course = "Leopardstown";
+            //RaceDate and ResultValue should still hold invalid values
+            Assert.AreEqual(false, t.IsValidResult());
+            t.RaceDate = new DateTime(2019, 02, 16);
+            //ResultValue should still hold invalid values
+            Assert.AreEqual(false, t.IsValidResult());
+            t.ResultValue = 10.0m;
+            //All Properties should now be valid
+            Assert.AreEqual(true, t.IsValidResult());
+            t.RaceDate = DateTime.Now.AddDays(1);
+            //date in the future, should make IsValid return false
+            Assert.AreEqual(false, t.IsValidResult());
+
+            //New Valid entry for further testing
+            t = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
+            Assert.AreEqual(true, t.IsValidResult());
+            t.Course = null;
+            Assert.AreEqual(false, t.IsValidResult());
+            t.Course = "";
+            Assert.AreEqual(false, t.IsValidResult());
+            t.Course = "Aintree";
+            Assert.AreEqual(true, t.IsValidResult());
+            t.RaceDate = t.RaceDate.AddYears(-2);
+            Assert.AreEqual(false, t.IsValidResult());
+            t.RaceDate = t.RaceDate.AddYears(2);
+            Assert.AreEqual(true, t.IsValidResult());
+            t.ResultValue = 9.99m;
+            Assert.AreEqual(false, t.IsValidResult());
+            t.ResultValue = 10m;
             Assert.AreEqual(true, t.IsValidResult());
         }
     }
@@ -95,6 +127,8 @@ namespace HotTipsterCA3.Tests
             Assert.AreEqual(1, Results.Count);
             AddRemainingResults();
             Assert.AreEqual(36, Results.Count);
+
+            //Adding null object should throw exception
             try
             {
                 Results.Add(null);
@@ -106,6 +140,115 @@ namespace HotTipsterCA3.Tests
             {
                 //Catches appropriate exception and test passes
                 StringAssert.Contains(e.Message, "Attempted to add null item to list");
+            }
+            catch (Exception)
+            {
+                //Catch base exception in case exception other than expected is thrown
+                //test fails in that case
+                Assert.Fail("Unexpected exception was thrown");
+            }
+            //Results.Count Shouldn't change after an attempt to add resulting in exception
+            Assert.AreEqual(36, Results.Count);
+
+            //Adding default constructed TipResult should throw exception
+            TipResult t = new TipResult();
+            try
+            {
+                Results.Add(t);
+            }
+            catch (ArgumentException e)
+            {
+                StringAssert.Contains(e.Message, "One or more properties have invalid data assigned");
+            }
+            catch (Exception)
+            {
+                //Catch base exception in case exception other than expected is thrown
+                //test fails in that case
+                Assert.Fail("Unexpected exception was thrown");
+            }
+            Assert.AreEqual(36, Results.Count);
+
+            //t with null string should throw exception
+            t = new TipResult { Course = null, RaceDate = DateTime.Now, ResultValue = 10.0m, Won = false };
+            try
+            {
+                Results.Add(t);
+            }
+            catch (ArgumentException e)
+            {
+                StringAssert.Contains(e.Message, "One or more properties have invalid data assigned");
+            }
+            catch (Exception)
+            {
+                //Catch base exception in case exception other than expected is thrown
+                //test fails in that case
+                Assert.Fail("Unexpected exception was thrown");
+            }
+            Assert.AreEqual(36, Results.Count);
+
+            //t with empty string should throw exception
+            t = new TipResult { Course = "", RaceDate = DateTime.Now, ResultValue = 10.0m, Won = false };
+            try
+            {
+                Results.Add(t);
+            }
+            catch (ArgumentException e)
+            {
+                StringAssert.Contains(e.Message, "One or more properties have invalid data assigned");
+            }
+            catch (Exception)
+            {
+                //Catch base exception in case exception other than expected is thrown
+                //test fails in that case
+                Assert.Fail("Unexpected exception was thrown");
+            }
+            Assert.AreEqual(36, Results.Count);
+
+            //RaceDate less than 2016 should throw exception
+            t = new TipResult { Course = "Aintree", RaceDate = new DateTime(2015, 12, 31), ResultValue = 10.0m, Won = false };
+            try
+            {
+                Results.Add(t);
+            }
+            catch (ArgumentException e)
+            {
+                StringAssert.Contains(e.Message, "One or more properties have invalid data assigned");
+            }
+            catch (Exception)
+            {
+                //Catch base exception in case exception other than expected is thrown
+                //test fails in that case
+                Assert.Fail("Unexpected exception was thrown");
+            }
+            Assert.AreEqual(36, Results.Count);
+
+            //RaceDate in the future should throw exception
+            t = new TipResult { Course = "Aintree", RaceDate = DateTime.Now.AddDays(1), ResultValue = 10.0m, Won = false };
+            try
+            {
+                Results.Add(t);
+            }
+            catch (ArgumentException e)
+            {
+                StringAssert.Contains(e.Message, "One or more properties have invalid data assigned");
+            }
+            catch (Exception)
+            {
+                //Catch base exception in case exception other than expected is thrown
+                //test fails in that case
+                Assert.Fail("Unexpected exception was thrown");
+            }
+            Assert.AreEqual(36, Results.Count);
+
+            //Result Value less than 10 should throw exception
+            t = new TipResult { Course = "Aintree", RaceDate = DateTime.Now, ResultValue = 9.99m, Won = false };
+            try
+            {
+                Results.Add(t);
+            }
+            catch (ArgumentException e)
+            {
+                StringAssert.Contains(e.Message, "One or more properties have invalid data assigned");
             }
             catch (Exception)
             {

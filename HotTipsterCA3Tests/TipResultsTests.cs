@@ -25,6 +25,13 @@ namespace HotTipsterCA3.Tests
                    $"{nameof(t.ResultValue)}: {value}{Environment.NewLine}" +
                    $"{nameof(t.Won)}: {won}{Environment.NewLine}", t.ToString());
         }
+
+        [TestMethod()]
+        public void IsValidResult()
+        {
+            TipResult t = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
+            Assert.AreEqual(true, t.IsValidResult());
+        }
     }
         [TestClass()]
     public class TipResultsTests

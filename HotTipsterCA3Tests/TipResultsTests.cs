@@ -9,6 +9,24 @@ using System.Threading.Tasks;
 namespace HotTipsterCA3.Tests
 {
     [TestClass()]
+    public class TipResultTests
+    {
+        [TestMethod()]
+        public void ToStringTest()
+        {
+            string course = "Leopardstown";
+            DateTime raceDate = new DateTime(2019, 2, 15);
+            decimal value = 101.11m;
+            bool won = true;
+            TipResult t = new TipResult { Course = course, RaceDate = raceDate, ResultValue = value, Won = won };
+
+            Assert.AreEqual($"{nameof(t.Course)}: {course}{Environment.NewLine}" +
+                   $"{nameof(t.RaceDate)}: {raceDate}{Environment.NewLine}" +
+                   $"{nameof(t.ResultValue)}: {value}{Environment.NewLine}" +
+                   $"{nameof(t.Won)}: {won}{Environment.NewLine}", t.ToString());
+        }
+    }
+        [TestClass()]
     public class TipResultsTests
     {
         private static TipResults Results = new TipResults();
@@ -110,19 +128,6 @@ namespace HotTipsterCA3.Tests
             Assert.AreEqual(0, Results.Count);
         }
 
-        [TestMethod()]
-        public void TipResultToStringTest()
-        {
-            string course = "Leopardstown";
-            DateTime raceDate = new DateTime(2019, 2, 15);
-            decimal value = 101.11m;
-            bool won = true;
-            TipResult t = new TipResult { Course = course, RaceDate = raceDate, ResultValue = value, Won = won };
-            
-            Assert.AreEqual($"{nameof(t.Course)}: {course}{Environment.NewLine}" +
-                   $"{nameof(t.RaceDate)}: {raceDate}{Environment.NewLine}" +
-                   $"{nameof(t.ResultValue)}: {value}{Environment.NewLine}" +
-                   $"{nameof(t.Won)}: {won}{Environment.NewLine}", t.ToString());
-        }
+        
     }
 }

@@ -20,5 +20,11 @@ namespace HotTipsterCA3
                    $"{nameof(ResultValue)}: {ResultValue}{Environment.NewLine}" +
                    $"{nameof(Won)}: {Won}{Environment.NewLine}";
         }
+
+        public bool IsValidResult()
+        {
+            
+            return true;
+        }
     }
 }

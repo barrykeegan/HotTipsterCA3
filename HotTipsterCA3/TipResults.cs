@@ -19,7 +19,13 @@ namespace HotTipsterCA3
             }
         }
 
-        public bool IsReadOnly => throw new NotImplementedException();
+        public bool IsReadOnly
+        {
+            get
+            {
+                return false;
+            }
+        }
 
         public void Add(TipResult item)
         {

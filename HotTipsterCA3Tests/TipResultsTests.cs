@@ -275,6 +275,15 @@ namespace HotTipsterCA3.Tests
         }
 
         [TestMethod()]
+        public void ContainsTest()
+        {
+            TipResult t = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
+            Assert.AreEqual(false, Results.Contains(t));
+            AddFirstResult();            
+            Assert.AreEqual(true, Results.Contains(t));
+        }
+
+        [TestMethod()]
         public void CountTest()
         {
             Assert.AreEqual(0, Results.Count);

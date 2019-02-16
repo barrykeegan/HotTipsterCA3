@@ -278,6 +278,12 @@ namespace HotTipsterCA3.Tests
         public void CountTest()
         {
             Assert.AreEqual(0, Results.Count);
+            AddFirstResult();
+            Assert.AreEqual(1, Results.Count);
+            AddRemainingResults();
+            Assert.AreEqual(36, Results.Count);
+            Results.Clear();
+            Assert.AreEqual(0, Results.Count);
         }
 
         

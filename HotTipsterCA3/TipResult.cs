@@ -33,7 +33,7 @@ namespace HotTipsterCA3
             //earlier years.
             //Also tipResults from the future can't be known, so if RaceDate is greater than now it can't be valid data
             
-            if (RaceDate.Year < int.Parse(System.Configuration.ConfigurationManager.AppSettings["earliestTipYear"]) || RaceDate > DateTime.Now)
+            if (RaceDate.Year < int.Parse(ConfigurationManager.AppSettings["earliestTipYear"]) || RaceDate > DateTime.Now)
             {
                 return false;
             }

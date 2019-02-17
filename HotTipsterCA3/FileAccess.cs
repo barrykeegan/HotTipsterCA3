@@ -53,6 +53,23 @@ namespace HotTipsterCA3
         public TipResult ReadSingleResultFromFile(string fileName)
         {
             TipResult tr = null;
+            FileStream fs = new FileStream(fileName, FileMode.Open);
+            BinaryFormatter bf = new BinaryFormatter();
+
+            try
+            {
+                tr = (TipResult)bf.Deserialize(fs);
+            }
+            catch (SerializationException e)
+            {
+                Console.WriteLine("Failed to serialize. Reason: " + e.Message);
+                throw;
+            }
+            finally
+            {
+                fs.Close();
+            }
+
             return tr;
         }
     }

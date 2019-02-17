@@ -61,15 +61,19 @@ namespace HotTipsterCA3.Tests
             Results.Add(new TipResult { Course = "Sandown", RaceDate = new DateTime(2017, 08, 07), ResultValue = 25.00m, Won = false });
         }
 
+        public void WriteSingleResultToFile()
+        {
+            TipResult t1 = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
+            fa.WriteSingleResultToFile(System.Configuration.ConfigurationManager.AppSettings["fileName"], t1);
+        }
+
         [TestCleanup()]
         public void ResetResults()
         {
             Results.Clear();
             File.Delete(System.Configuration.ConfigurationManager.AppSettings["fileName"]);
         }
-
-
-
+               
         [TestMethod()]
         public void FileExistsTest()
         {            
@@ -78,7 +82,7 @@ namespace HotTipsterCA3.Tests
         }
 
         [TestMethod()]
-        public void WriteSingleResultToFileTest()
+        public void ReadAndWriteSingleResultToFileTest()
         {
             TipResult t1 = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
             Assert.AreEqual(true,fa.WriteSingleResultToFile(System.Configuration.ConfigurationManager.AppSettings["fileName"], t1));
@@ -87,8 +91,9 @@ namespace HotTipsterCA3.Tests
         [TestMethod()]
         public void ReadSingleResultFromFileTest()
         {
+            WriteSingleResultToFile();
             TipResult t1 = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
-            Assert.AreEqual(null, fa.ReadSingleResultFromFile(System.Configuration.ConfigurationManager.AppSettings["fileName"]));
+            Assert.AreEqual(t1, fa.ReadSingleResultFromFile(System.Configuration.ConfigurationManager.AppSettings["fileName"]));
         }
     }
 

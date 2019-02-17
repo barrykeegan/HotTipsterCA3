@@ -20,7 +20,7 @@ namespace HotTipsterCA3
             return false;
         }
 
-        public bool WriteFile(string fileName, TipResult tr)
+        public bool WriteSingleResultToFile(string fileName, TipResult tr)
         {
             FileStream fs = new FileStream(fileName, FileMode.Create);
 
@@ -48,6 +48,12 @@ namespace HotTipsterCA3
             {
                 return false;
             }
+        }
+
+        public TipResult ReadSingleResultFromFile(string fileName)
+        {
+            TipResult tr = null;
+            return tr;
         }
     }
 }

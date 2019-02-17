@@ -9,13 +9,13 @@ namespace HotTipsterCA3
 {
     public class TipResults : ICollection<TipResult>
     {
-        private List<TipResult> Results = new List<TipResult>();
+        private List<TipResult> ResultList = new List<TipResult>();
 
         public int Count
         {
             get
             {
-                return Results.Count;
+                return ResultList.Count;
             }
         }
 
@@ -37,17 +37,17 @@ namespace HotTipsterCA3
             {
                 throw new ArgumentException("One or more properties have invalid data assigned" + Environment.NewLine + item.ToString());
             }
-            Results.Add(item);
+            ResultList.Add(item);
         }
 
         public void Clear()
         {
-            Results.Clear();
+            ResultList.Clear();
         }
 
         public bool Contains(TipResult item)
         {
-            throw new NotImplementedException();
+            return ResultList.Contains(item);
         }
 
         public void CopyTo(TipResult[] array, int arrayIndex)

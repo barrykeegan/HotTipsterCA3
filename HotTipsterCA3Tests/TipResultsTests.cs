@@ -12,18 +12,13 @@ namespace HotTipsterCA3.Tests
     public class TipResultTests
     {
         [TestMethod()]
-        public void ToStringTest()
+        public void EqualsTest()
         {
-            string course = "Leopardstown";
-            DateTime raceDate = new DateTime(2019, 2, 15);
-            decimal value = 101.11m;
-            bool won = true;
-            TipResult t = new TipResult { Course = course, RaceDate = raceDate, ResultValue = value, Won = won };
-
-            Assert.AreEqual($"{nameof(t.Course)}: {course}{Environment.NewLine}" +
-                   $"{nameof(t.RaceDate)}: {raceDate}{Environment.NewLine}" +
-                   $"{nameof(t.ResultValue)}: {value}{Environment.NewLine}" +
-                   $"{nameof(t.Won)}: {won}{Environment.NewLine}", t.ToString());
+            TipResult t1 = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
+            TipResult t2 = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
+            Assert.AreEqual(true, t1.Equals(t2));
+            t2.Course = "Phoenix Park";
+            Assert.AreEqual(false, t1.Equals(t2));
         }
 
         [TestMethod()]
@@ -64,8 +59,24 @@ namespace HotTipsterCA3.Tests
             t.ResultValue = 10m;
             Assert.AreEqual(true, t.IsValidResult());
         }
+
+        [TestMethod()]
+        public void ToStringTest()
+        {
+            string course = "Leopardstown";
+            DateTime raceDate = new DateTime(2019, 2, 15);
+            decimal value = 101.11m;
+            bool won = true;
+            TipResult t = new TipResult { Course = course, RaceDate = raceDate, ResultValue = value, Won = won };
+
+            Assert.AreEqual($"{nameof(t.Course)}: {course}{Environment.NewLine}" +
+                   $"{nameof(t.RaceDate)}: {raceDate}{Environment.NewLine}" +
+                   $"{nameof(t.ResultValue)}: {value}{Environment.NewLine}" +
+                   $"{nameof(t.Won)}: {won}{Environment.NewLine}", t.ToString());
+        }        
     }
-        [TestClass()]
+
+    [TestClass()]
     public class TipResultsTests
     {
         private static TipResults Results = new TipResults();

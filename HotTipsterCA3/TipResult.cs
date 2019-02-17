@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotTipsterCA3
 {
-    public class TipResult
+    public class TipResult: IEquatable<TipResult>
     {
         public string Course { get; set; }
         public DateTime RaceDate { get; set; }
@@ -46,6 +46,15 @@ namespace HotTipsterCA3
             //There is no real way to validate Won property, 
             //since it will initialise to false which is a valid value
             return true;
+        }
+
+        public bool Equals(TipResult other)
+        {
+            if(Course == other.Course && RaceDate == other.RaceDate && ResultValue == other.ResultValue && Won == other.Won)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

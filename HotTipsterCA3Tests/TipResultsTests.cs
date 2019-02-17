@@ -226,10 +226,16 @@ namespace HotTipsterCA3.Tests
         [TestMethod()]
         public void AddTest()
         {
+            TipResult firstTipResult = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
             AddFirstResult();
             Assert.AreEqual(1, Results.Count);
+            Assert.AreEqual(true, Results.Contains(firstTipResult));
             AddRemainingResults();
             Assert.AreEqual(36, Results.Count);
+            //Assign a TipResult object to randomTipResult with data equal to a randomly selected TipResult
+            //from the AddRemainingResults method, then test that it was added by AddRemainingResults using contains
+            TipResult randomTipResult = new TipResult { Course = "Ascot", RaceDate = new DateTime(2017, 06, 23), ResultValue = 374.27m, Won = true };
+            Assert.AreEqual(true, Results.Contains(randomTipResult));
 
             //Adding null object should throw exception
             try
@@ -406,6 +412,15 @@ namespace HotTipsterCA3.Tests
             Assert.AreEqual(0, Results.Count);
         }
 
-        
+        [TestMethod()]
+        public void RemoveTest()
+        {
+            TipResult firstTipResult = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
+            AddFirstResult();
+            Assert.AreEqual(true, Results.Contains(firstTipResult));
+            Assert.AreEqual(true, Results.Remove(firstTipResult));
+            Assert.AreEqual(false, Results.Contains(firstTipResult));
+            Assert.AreEqual(0, Results.Count);
+        }
     }
 }

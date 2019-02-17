@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HotTipsterCA3;
 using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,18 @@ using System.Threading.Tasks;
 
 namespace HotTipsterCA3.Tests
 {
+    [TestClass()]
+    public class FileAccessTests
+    {
+        [TestMethod()]
+        public void FileExistsTest()
+        {
+            FileAccess fa = new FileAccess();
+            Assert.AreEqual(false, fa.FileExists("a1234b5678c90.txt"));
+            Assert.AreEqual(false, fa.FileExists(System.Configuration.ConfigurationManager.AppSettings["fileName"]));
+        }
+    }
+
     [TestClass()]
     public class TipResultTests
     {

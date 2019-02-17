@@ -17,5 +17,11 @@ namespace HotTipsterCA3
             }
             return false;
         }
+
+        public bool WriteFile(string fileName, TipResult tr)
+        {
+            
+            return true;
+        }
     }
 }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotTipsterCA3
 {
+    [Serializable]
     public class TipResults : ICollection<TipResult>
     {
         private List<TipResult> ResultList = new List<TipResult>();

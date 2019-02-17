@@ -20,17 +20,18 @@ namespace HotTipsterCA3
             return false;
         }
 
-        public bool WriteSingleResultToFile(string fileName, TipResult tr)
+        
+        public TipResults ReadResultsCollectionFromFile(string fileName)
         {
-            FileStream fs = new FileStream(fileName, FileMode.Create);
-
+            TipResults trc = null;
+            FileStream fs = new FileStream(fileName, FileMode.Open);
             BinaryFormatter bf = new BinaryFormatter();
 
             try
             {
-                bf.Serialize(fs, tr);
+                trc = (TipResults)bf.Deserialize(fs);
             }
-            catch(SerializationException e)
+            catch (SerializationException e)
             {
                 Console.WriteLine("Failed to serialize. Reason: " + e.Message);
                 throw;
@@ -39,15 +40,7 @@ namespace HotTipsterCA3
             {
                 fs.Close();
             }
-
-            if (File.Exists(fileName))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return trc;
         }
 
         public TipResult ReadSingleResultFromFile(string fileName)
@@ -71,6 +64,66 @@ namespace HotTipsterCA3
             }
 
             return tr;
+        }
+
+        public bool WriteResultsCollectionToFile(string fileName, TipResults tr)
+        {
+            FileStream fs = new FileStream(fileName, FileMode.Create);
+
+            BinaryFormatter bf = new BinaryFormatter();
+
+            try
+            {
+                bf.Serialize(fs, tr);
+            }
+            catch (SerializationException e)
+            {
+                Console.WriteLine("Failed to serialize. Reason: " + e.Message);
+                throw;
+            }
+            finally
+            {
+                fs.Close();
+            }
+
+            if (File.Exists(fileName))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool WriteSingleResultToFile(string fileName, TipResult tr)
+        {
+            FileStream fs = new FileStream(fileName, FileMode.Create);
+
+            BinaryFormatter bf = new BinaryFormatter();
+
+            try
+            {
+                bf.Serialize(fs, tr);
+            }
+            catch (SerializationException e)
+            {
+                Console.WriteLine("Failed to serialize. Reason: " + e.Message);
+                throw;
+            }
+            finally
+            {
+                fs.Close();
+            }
+
+            if (File.Exists(fileName))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

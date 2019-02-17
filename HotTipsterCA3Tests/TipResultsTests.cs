@@ -14,11 +14,69 @@ namespace HotTipsterCA3.Tests
         [TestMethod()]
         public void EqualsTest()
         {
-            TipResult t1 = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
-            TipResult t2 = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
+            TipResult t1 = null;
+            TipResult t2 = null;
+            try
+            {
+                t1.Equals(t2);
+                Assert.Fail("Exception should have been thrown by this point.");
+            }
+            catch (NullReferenceException e)
+            {
+                StringAssert.Contains(e.Message, "Object reference not set to an instance of an object");
+            }
+            catch (Exception)
+            {
+                Assert.Fail("Unexpected Exception!");
+            }
+            t1 = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
+            Assert.AreEqual(false, t1.Equals(t2));
+            t2 = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
             Assert.AreEqual(true, t1.Equals(t2));
             t2.Course = "Phoenix Park";
             Assert.AreEqual(false, t1.Equals(t2));
+            t2.Course = "Aintree";
+            Assert.AreEqual(true, t1.Equals(t2));
+            t2.RaceDate = t2.RaceDate.AddDays(-1);
+            Assert.AreEqual(false, t1.Equals(t2));
+            t2.RaceDate = t2.RaceDate.AddDays(1);
+            Assert.AreEqual(true, t1.Equals(t2));
+            t2.ResultValue = t2.ResultValue + 1.0m;
+            Assert.AreEqual(false, t1.Equals(t2));
+            t2.ResultValue = t2.ResultValue - 1.0m;
+            Assert.AreEqual(true, t1.Equals(t2));
+            t2.Won = !t2.Won;
+            Assert.AreEqual(false, t1.Equals(t2));
+            t2.Won = !t2.Won;
+            Assert.AreEqual(true, t1.Equals(t2));
+        }
+
+        [TestMethod()]
+        public void EqualsEqualsTest()
+        {
+            TipResult t1 = null;
+            TipResult t2 = null;
+            Assert.AreEqual(true, t1==t2);
+            t1 = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
+            Assert.AreEqual(false, t1 == t2);
+            t2 = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
+            Assert.AreEqual(true, t1 == t2);
+            t2.Course = "Phoenix Park";
+            Assert.AreEqual(false, t1 == t2);
+            t2.Course = "Aintree";
+            Assert.AreEqual(true, t1 == t2);
+            t2.RaceDate = t2.RaceDate.AddDays(-1);
+            Assert.AreEqual(false, t1 == t2);
+            t2.RaceDate = t2.RaceDate.AddDays(1);
+            Assert.AreEqual(true, t1 == t2);
+            t2.ResultValue = t2.ResultValue + 1.0m;
+            Assert.AreEqual(false, t1 == t2);
+            t2.ResultValue = t2.ResultValue - 1.0m;
+            Assert.AreEqual(true, t1 == t2);
+            t2.Won = !t2.Won;
+            Assert.AreEqual(false, t1 == t2);
+            t2.Won = !t2.Won;
+            Assert.AreEqual(true, t1 == t2);
         }
 
         [TestMethod()]
@@ -58,6 +116,40 @@ namespace HotTipsterCA3.Tests
             Assert.AreEqual(false, t.IsValidResult());
             t.ResultValue = 10m;
             Assert.AreEqual(true, t.IsValidResult());
+        }
+
+        [TestMethod()]
+        public void NotEqualsTest()
+        {
+            /*TipResult t1 = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
+            TipResult t2 = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
+            Assert.AreEqual(false, t1 != t2);
+            t2.Course = "Phoenix Park";
+            Assert.AreEqual(true, t1 != t2);*/
+
+            TipResult t1 = null;
+            TipResult t2 = null;
+            Assert.AreEqual(false, t1 != t2);
+            t1 = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
+            Assert.AreEqual(true, t1 != t2);
+            t2 = new TipResult { Course = "Aintree", RaceDate = new DateTime(2017, 05, 12), ResultValue = 11.58m, Won = true };
+            Assert.AreEqual(false, t1 != t2);
+            t2.Course = "Phoenix Park";
+            Assert.AreEqual(true, t1 != t2);
+            t2.Course = "Aintree";
+            Assert.AreEqual(false, t1 != t2);
+            t2.RaceDate = t2.RaceDate.AddDays(-1);
+            Assert.AreEqual(true, t1 != t2);
+            t2.RaceDate = t2.RaceDate.AddDays(1);
+            Assert.AreEqual(false, t1 != t2);
+            t2.ResultValue = t2.ResultValue + 1.0m;
+            Assert.AreEqual(true, t1 != t2);
+            t2.ResultValue = t2.ResultValue - 1.0m;
+            Assert.AreEqual(false, t1 != t2);
+            t2.Won = !t2.Won;
+            Assert.AreEqual(true, t1 != t2);
+            t2.Won = !t2.Won;
+            Assert.AreEqual(false, t1 != t2);
         }
 
         [TestMethod()]
@@ -292,6 +384,14 @@ namespace HotTipsterCA3.Tests
             Assert.AreEqual(false, Results.Contains(t));
             AddFirstResult();            
             Assert.AreEqual(true, Results.Contains(t));
+            AddRemainingResults();
+            //Assign a TipResult object to t with data equal to a randomly selected TipResult
+            //from the AddRemainingResults method, then test that Contains works on that
+            t = new TipResult { Course = "Ascot", RaceDate = new DateTime(2017, 06, 23), ResultValue = 374.27m, Won = true };
+            Assert.AreEqual(true, Results.Contains(t));
+            //Change t.Course to "Phoenix Park", a course that is no longer used, to ensure Contains returns false
+            t.Course = "Phoenix Park";
+            Assert.AreEqual(false, Results.Contains(t));
         }
 
         [TestMethod()]

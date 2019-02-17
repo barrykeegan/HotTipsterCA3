@@ -48,13 +48,40 @@ namespace HotTipsterCA3
             return true;
         }
 
+        public override bool Equals(object obj)
+        {
+            return this.Equals((TipResult)obj);
+        }
+
         public bool Equals(TipResult other)
         {
+            if(other == null)
+            {
+                return false;
+            }
             if(Course == other.Course && RaceDate == other.RaceDate && ResultValue == other.ResultValue && Won == other.Won)
             {
                 return true;
             }
             return false;
+        }
+
+        public static bool operator ==(TipResult tr1, TipResult tr2)
+        {
+            if( object.ReferenceEquals(tr1, null) )
+            {
+                return object.ReferenceEquals(tr2, null);
+            }
+            return tr1.Equals((TipResult)tr2);
+        }
+
+        public static bool operator !=(TipResult tr1, TipResult tr2)
+        {
+            if (object.ReferenceEquals(tr1, null))
+            {
+                return !(object.ReferenceEquals(tr2, null));
+            }
+            return !( tr1.Equals((TipResult)tr2));
         }
     }
 }

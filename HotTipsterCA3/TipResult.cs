@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotTipsterCA3
 {
+    [Serializable]
     public class TipResult: IEquatable<TipResult>
     {
         public string Course { get; set; }

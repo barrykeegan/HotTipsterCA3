@@ -76,6 +76,66 @@ namespace HotTipsterCA3
             }
         }
 
-        
+        private void mnuItemWriteFile_Click(object sender, EventArgs e)
+        {
+            if (Results.Count != 0)
+            {
+                DialogResult dr = MessageBox.Show(
+                    this,
+                    "Are you sure you want to write the current Tip Results to the file? This will overwrite the current contents of the file.", 
+                    "Confirm File Write", 
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+                if (dr == DialogResult.Yes)
+                {
+                    fa.WriteResultsCollectionToFile(System.Configuration.ConfigurationManager.AppSettings["fileName"], Results);
+                    MessageBox.Show(
+                        this,
+                        $"Write of {Results.Count} Tip Results successful.",
+                        "Write Successful",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void mnuItemReadFile_Click(object sender, EventArgs e)
+        {
+            if (Results.Count == 0)
+            {
+                Results = fa.ReadResultsCollectionFromFile(System.Configuration.ConfigurationManager.AppSettings["fileName"]);
+                MessageBox.Show(
+                    this,
+                    $"Read of {Results.Count} Tip Results successful.",
+                    "Read Successful",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            else
+            {
+                DialogResult dr = MessageBox.Show(
+                    this,
+                    "Are you sure you want to read in the contents of Tip Results file? This will overwrite the current set of Results you are working with.",
+                    "Confirm File Read",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+                if (dr == DialogResult.Yes)
+                {
+                    fa.WriteResultsCollectionToFile(System.Configuration.ConfigurationManager.AppSettings["fileName"], Results);
+                    MessageBox.Show(
+                        this,
+                        $"Read of {Results.Count} Tip Results successful.",
+                        "Read Successful",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+
+            }
+        }
+
+        private void mnuItemExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

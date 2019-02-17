@@ -52,17 +52,17 @@ namespace HotTipsterCA3
 
         public void CopyTo(TipResult[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            ResultList.CopyTo(array, arrayIndex);
         }
 
         public IEnumerator<TipResult> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return ResultList.GetEnumerator();
         }
 
         public bool Remove(TipResult item)
         {
-            throw new NotImplementedException();
+            return ResultList.Remove(item);
         }
 
         IEnumerator IEnumerable.GetEnumerator()

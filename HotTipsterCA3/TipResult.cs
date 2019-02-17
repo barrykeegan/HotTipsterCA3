@@ -66,6 +66,16 @@ namespace HotTipsterCA3
             return false;
         }
 
+        public override int GetHashCode()
+        {
+            var hashCode = -1515630888;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Course);
+            hashCode = hashCode * -1521134295 + RaceDate.GetHashCode();
+            hashCode = hashCode * -1521134295 + ResultValue.GetHashCode();
+            hashCode = hashCode * -1521134295 + Won.GetHashCode();
+            return hashCode;
+        }
+
         public static bool operator ==(TipResult tr1, TipResult tr2)
         {
             if( object.ReferenceEquals(tr1, null) )

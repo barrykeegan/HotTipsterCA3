@@ -46,9 +46,15 @@
             this.lblRaceDate = new System.Windows.Forms.Label();
             this.txtCourse = new System.Windows.Forms.TextBox();
             this.lblCourse = new System.Windows.Forms.Label();
+            this.rtbReports = new System.Windows.Forms.RichTextBox();
+            this.btnDateOrder = new System.Windows.Forms.Button();
+            this.dgvReports = new System.Windows.Forms.DataGridView();
+            this.btnYearSummaries = new System.Windows.Forms.Button();
+            this.btnPopularCourse = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.gbxAddTipResult.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvReports)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -208,11 +214,62 @@
             this.lblCourse.TabIndex = 0;
             this.lblCourse.Text = "Race Course Name";
             // 
+            // rtbReports
+            // 
+            this.rtbReports.Location = new System.Drawing.Point(21, 373);
+            this.rtbReports.Name = "rtbReports";
+            this.rtbReports.Size = new System.Drawing.Size(420, 188);
+            this.rtbReports.TabIndex = 4;
+            this.rtbReports.Text = "";
+            // 
+            // btnDateOrder
+            // 
+            this.btnDateOrder.Location = new System.Drawing.Point(24, 341);
+            this.btnDateOrder.Name = "btnDateOrder";
+            this.btnDateOrder.Size = new System.Drawing.Size(71, 22);
+            this.btnDateOrder.TabIndex = 5;
+            this.btnDateOrder.Text = "Date Order";
+            this.btnDateOrder.UseVisualStyleBackColor = true;
+            this.btnDateOrder.Click += new System.EventHandler(this.btnDateOrder_Click);
+            // 
+            // dgvReports
+            // 
+            this.dgvReports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvReports.Location = new System.Drawing.Point(455, 375);
+            this.dgvReports.Name = "dgvReports";
+            this.dgvReports.Size = new System.Drawing.Size(476, 185);
+            this.dgvReports.TabIndex = 6;
+            // 
+            // btnYearSummaries
+            // 
+            this.btnYearSummaries.Location = new System.Drawing.Point(103, 342);
+            this.btnYearSummaries.Name = "btnYearSummaries";
+            this.btnYearSummaries.Size = new System.Drawing.Size(98, 20);
+            this.btnYearSummaries.TabIndex = 7;
+            this.btnYearSummaries.Text = "Year Summaries";
+            this.btnYearSummaries.UseVisualStyleBackColor = true;
+            this.btnYearSummaries.Click += new System.EventHandler(this.btnYearSummaries_Click);
+            // 
+            // btnPopularCourse
+            // 
+            this.btnPopularCourse.Location = new System.Drawing.Point(638, 342);
+            this.btnPopularCourse.Name = "btnPopularCourse";
+            this.btnPopularCourse.Size = new System.Drawing.Size(125, 19);
+            this.btnPopularCourse.TabIndex = 8;
+            this.btnPopularCourse.Text = "Most Popular Course";
+            this.btnPopularCourse.UseVisualStyleBackColor = true;
+            this.btnPopularCourse.Click += new System.EventHandler(this.btnPopularCourse_Click);
+            // 
             // frmHotTipster
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(958, 583);
+            this.Controls.Add(this.btnPopularCourse);
+            this.Controls.Add(this.btnYearSummaries);
+            this.Controls.Add(this.dgvReports);
+            this.Controls.Add(this.btnDateOrder);
+            this.Controls.Add(this.rtbReports);
             this.Controls.Add(this.gbxAddTipResult);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblFormTitle);
@@ -225,6 +282,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.gbxAddTipResult.ResumeLayout(false);
             this.gbxAddTipResult.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvReports)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -249,6 +307,11 @@
         private System.Windows.Forms.TextBox txtCourse;
         private System.Windows.Forms.Label lblCourse;
         private System.Windows.Forms.Button btnAddNewResult;
+        private System.Windows.Forms.RichTextBox rtbReports;
+        private System.Windows.Forms.Button btnDateOrder;
+        private System.Windows.Forms.DataGridView dgvReports;
+        private System.Windows.Forms.Button btnYearSummaries;
+        private System.Windows.Forms.Button btnPopularCourse;
     }
 }
 

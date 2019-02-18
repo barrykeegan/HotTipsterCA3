@@ -221,6 +221,89 @@ namespace HotTipsterCA3
                     MessageBoxIcon.Exclamation);
             }
         }
-        
+
+        private void btnDateOrder_Click(object sender, EventArgs e)
+        {
+            rtbReports.Clear();
+            dgvReports.DataSource = null;
+            if(Results.Count == 0)
+            {
+                MessageBox.Show(
+                    this, "There are no records in Results Collection",
+                    "No Records Present", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                var reportSet = from result in Results
+                                orderby result.RaceDate
+                                select result;
+                foreach (var result in reportSet)
+                {
+                    rtbReports.AppendText(result.ToString());
+                }
+                dgvReports.DataSource = reportSet.ToList();
+
+            }
+        }
+
+        private void btnYearSummaries_Click(object sender, EventArgs e)
+        {
+            rtbReports.Clear();
+            dgvReports.DataSource = null;
+            if (Results.Count == 0)
+            {
+                MessageBox.Show(
+                    this, "There are no records in Results Collection",
+                    "No Records Present", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                var reportSet = from result in Results                                
+                                group result.Won by result.RaceDate.Year into years
+                                orderby years.Key
+                                select years;
+                foreach (var year in reportSet)
+                {
+                    rtbReports.AppendText(year.Key.ToString() + Environment.NewLine);
+                    foreach(var result in year)
+                    {
+                        rtbReports.AppendText(result.ToString() + Environment.NewLine);
+                    }
+                }
+                dgvReports.DataSource = reportSet.ToList();
+
+            }
+        }
+
+        private void btnPopularCourse_Click(object sender, EventArgs e)
+        {
+            rtbReports.Clear();
+            dgvReports.DataSource = null;
+            if (Results.Count == 0)
+            {
+                MessageBox.Show(
+                    this, "There are no records in Results Collection",
+                    "No Records Present", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                var reportSet = from result in Results
+                                
+                                group result by result.Course into courses
+                                
+                                orderby courses.Key
+                                select courses;
+                foreach (var course in reportSet)
+                {
+                    rtbReports.AppendText(course.Key.ToString() + Environment.NewLine);
+                    foreach (var result in course)
+                    {
+                        rtbReports.AppendText(result.ToString() + Environment.NewLine);
+                    }
+                }
+                dgvReports.DataSource = reportSet.ToList();
+
+            }
+        }
     }
 }

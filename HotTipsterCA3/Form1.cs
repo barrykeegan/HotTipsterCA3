@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Configuration;
+using System.Text.RegularExpressions;
 
 namespace HotTipsterCA3
 {
@@ -121,7 +122,7 @@ namespace HotTipsterCA3
                     MessageBoxIcon.Question);
                 if (dr == DialogResult.Yes)
                 {
-                    fa.WriteResultsCollectionToFile(System.Configuration.ConfigurationManager.AppSettings["fileName"], Results);
+                    Results = fa.ReadResultsCollectionFromFile(System.Configuration.ConfigurationManager.AppSettings["fileName"]);
                     MessageBox.Show(
                         this,
                         $"Read of {Results.Count} Tip Results successful.",
@@ -137,5 +138,96 @@ namespace HotTipsterCA3
         {
             Application.Exit();
         }
+
+        private void btnAddNewResult_Click(object sender, EventArgs e)
+        {
+            string validationMessage = "";
+            bool validData = false;
+            decimal ResultValue;
+            if(txtCourse.Text == "")
+            {
+                validationMessage += "You must enter a race course name." + Environment.NewLine;
+            }
+            if (!Regex.IsMatch(txtCourse.Text, @"^[a-zA-Z ]+$"))
+            {
+                validationMessage += "Course Name can only be alphabetic." + Environment.NewLine;
+            }
+            if (dtpRaceDate.Value < new DateTime(2016,01,01))
+            {
+                validationMessage += "Date must not be before 2016." + Environment.NewLine;
+            }
+            if(dtpRaceDate.Value.Date > DateTime.Today)
+            {
+                validationMessage += "Date must not be in the future." + Environment.NewLine;
+            }
+            if(!decimal.TryParse(txtResultValue.Text, out ResultValue))
+            {
+                validationMessage += "You must enter a decimal value for the Result Value." + Environment.NewLine;
+            }
+            else if(ResultValue < 10)
+            {
+                validationMessage += "The Result Value cannot be less than €10.00" + Environment.NewLine;
+            }
+
+            if (validationMessage == "")
+            {
+                validData = true;
+                //if results.count = 0, then file contents must not have been read in yet
+                //if results is added to in this state then it will be overwritten on any 
+                //future read, this may lead to unexpected results. check with user that
+                //that's what they want
+                if (Results.Count == 0)
+                {
+                    DialogResult dr = MessageBox.Show(
+                        this,
+                        "Are you sure you want to add to the Results Collection at this time?" + Environment.NewLine +
+                        "The Results Collection is currently empty, this means you have not yet read the file contents in. If you continue with this action, any future write to the file will overwrite its contents, and any future read from the file will overwrite Results Collection contents.",
+                        "Add New Record to Results Collection",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+                    if (dr == DialogResult.Yes)
+                    {
+                        TipResult newResult = new TipResult
+                        {
+                            Course = txtCourse.Text,
+                            RaceDate = dtpRaceDate.Value.Date,
+                            ResultValue = decimal.Parse(txtResultValue.Text),
+                            Won = chkWon.Checked
+                        };
+                        Results.Add(newResult);
+                        txtCourse.Text = "";
+                        txtResultValue.Text = "";
+                        dtpRaceDate.Value = DateTime.Today;
+                        chkWon.Checked = false;
+                    }
+                }
+                else
+                {
+                    TipResult newResult = new TipResult
+                    {
+                        Course = txtCourse.Text,
+                        RaceDate = dtpRaceDate.Value.Date,
+                        ResultValue = decimal.Parse(txtResultValue.Text),
+                        Won = chkWon.Checked
+                    };
+                    Results.Add(newResult);
+                    txtCourse.Text = "";
+                    txtResultValue.Text = "";
+                    dtpRaceDate.Value = DateTime.Today;
+                    chkWon.Checked = false;
+                }
+            }
+            else
+            {
+                MessageBox.Show(
+                    this,
+                    "Your input was invalid Details:" + Environment.NewLine + validationMessage +
+                    Environment.NewLine + "Please fix the data and try again",
+                    "Invalid Data Entered",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
+            }
+        }
+        
     }
 }

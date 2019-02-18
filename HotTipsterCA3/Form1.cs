@@ -130,7 +130,6 @@ namespace HotTipsterCA3
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                 }
-
             }
         }
 
@@ -139,10 +138,25 @@ namespace HotTipsterCA3
             Application.Exit();
         }
 
+        private void AddNewResult()
+        {
+            TipResult newResult = new TipResult
+            {
+                Course = txtCourse.Text,
+                RaceDate = dtpRaceDate.Value.Date,
+                ResultValue = decimal.Parse(txtResultValue.Text),
+                Won = chkWon.Checked
+            };
+            Results.Add(newResult);
+            txtCourse.Text = "";
+            txtResultValue.Text = "";
+            dtpRaceDate.Value = DateTime.Today;
+            chkWon.Checked = false;
+        }
+
         private void btnAddNewResult_Click(object sender, EventArgs e)
         {
             string validationMessage = "";
-            bool validData = false;
             decimal ResultValue;
             if(txtCourse.Text == "")
             {
@@ -169,9 +183,10 @@ namespace HotTipsterCA3
                 validationMessage += "The Result Value cannot be less than €10.00" + Environment.NewLine;
             }
 
+            //If validationMessage string is still empty at this stage, then no problems
+            //were found with the data
             if (validationMessage == "")
             {
-                validData = true;
                 //if results.count = 0, then file contents must not have been read in yet
                 //if results is added to in this state then it will be overwritten on any 
                 //future read, this may lead to unexpected results. check with user that
@@ -187,34 +202,12 @@ namespace HotTipsterCA3
                         MessageBoxIcon.Question);
                     if (dr == DialogResult.Yes)
                     {
-                        TipResult newResult = new TipResult
-                        {
-                            Course = txtCourse.Text,
-                            RaceDate = dtpRaceDate.Value.Date,
-                            ResultValue = decimal.Parse(txtResultValue.Text),
-                            Won = chkWon.Checked
-                        };
-                        Results.Add(newResult);
-                        txtCourse.Text = "";
-                        txtResultValue.Text = "";
-                        dtpRaceDate.Value = DateTime.Today;
-                        chkWon.Checked = false;
+                        AddNewResult();
                     }
                 }
                 else
                 {
-                    TipResult newResult = new TipResult
-                    {
-                        Course = txtCourse.Text,
-                        RaceDate = dtpRaceDate.Value.Date,
-                        ResultValue = decimal.Parse(txtResultValue.Text),
-                        Won = chkWon.Checked
-                    };
-                    Results.Add(newResult);
-                    txtCourse.Text = "";
-                    txtResultValue.Text = "";
-                    dtpRaceDate.Value = DateTime.Today;
-                    chkWon.Checked = false;
+                    AddNewResult();
                 }
             }
             else

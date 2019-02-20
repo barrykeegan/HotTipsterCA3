@@ -258,19 +258,96 @@ namespace HotTipsterCA3
             }
             else
             {
-                var reportSet = from result in Results                                
-                                group result.Won by result.RaceDate.Year into years
-                                orderby years.Key
-                                select years;
-                foreach (var year in reportSet)
+                
+                var reportSet = Results.
+                                GroupBy(r => r.RaceDate.Year,
+                                (key, data) => new
+                                {
+                                    Year = key,
+                                    TotalWon = data.Where(d => d.Won == true).Sum(d => d.ResultValue),
+                                    TotalLost = data.Where(d => d.Won == false).Sum(d => d.ResultValue)
+                                }).ToList();
+                dgvReports.DataSource = reportSet.ToList();
+
+
+
+                /***************************************************************
+                * GRAVEYARD OF FAILED ATTEMPTS
+                **************************************************************/
+                /*var reportSet = Results.
+                                Aggregate((a, b) => a.ResultValue + b.ResultValue).
+                IEnumerable<int> years = from result in Results
+                                         group result by result.RaceDate.Year into yearGroups
+                                         select yearGroups.Key;*/
+                //List<int> yearsList = years.ToList();
+                /*decimal[] Values = new decimal[years.Count() * 2];
+                int i = 0;
+                foreach (int year in years)
                 {
-                    rtbReports.AppendText(year.Key.ToString() + Environment.NewLine);
+                    Values[i] = Results.Where(x => x.RaceDate.Year == year && x.Won == true).Sum(x => x.ResultValue);
+                    Values[i + 1] = Results.Where(x => x.RaceDate.Year == year && x.Won == false).Sum(x => x.ResultValue);
+                    i++;
+                }
+
+                rtbReports.AppendText("Year\tTotal Won\tTotal Lost" + Environment.NewLine);
+                i = 0;
+                foreach (int year in years)
+                {
+                    rtbReports.AppendText($"{year}\t€{Values[i]}\t\t€{Values[i + 1]}" + Environment.NewLine);
+                }*/
+                /*foreach (var year in reportSet)
+                {
+                    rtbReports.AppendText(year.ToString() + Environment.NewLine);
                     foreach(var result in year)
                     {
                         rtbReports.AppendText(result.ToString() + Environment.NewLine);
                     }
                 }
-                dgvReports.DataSource = reportSet.ToList();
+                dgvReports.DataSource = reportSet.ToList();*/
+
+                /*List<object> summaries = new List<object>();*/
+                /*foreach (var yearGroup in reportSet)
+                {
+                    var summary = from bets in yearGroup.Key
+                                  
+                } */
+                /*let totalArrearsInMonths = (account.PaymentPeriod == PaymentPeriod.Annual ? account.ArrearsCount * 12
+                       : account.PaymentPeriod == PaymentPeriod.BiAnnual ? account.ArrearsCount * 6
+                       : account.PaymentPeriod == PaymentPeriod.Quaterly ? account.ArrearsCount * 3
+                       : account.ArrearsCount)
+                where account.ArrearsCount > 0
+                select new
+                {
+                    account.AccountID,
+                    account.PaymentPeriod,
+                    totalArrearsInMonths
+                }).ToList();
+                from account in accountRecords
+                let totalArrearsInMonths = (account.PaymentPeriod == PaymentPeriod.Annual ? account.ArrearsCount * 12
+                       : account.PaymentPeriod == PaymentPeriod.BiAnnual ? account.ArrearsCount * 6
+                       : account.PaymentPeriod == PaymentPeriod.Quaterly ? account.ArrearsCount * 3
+                       : account.ArrearsCount)
+                where account.ArrearsCount > 0
+                select new
+                {
+                    account.AccountID,
+                    account.PaymentPeriod,
+                    totalArrearsInMonths
+                }).ToList();*/
+                /*var reportSet = Results.
+                                Sum(x => x.ResultValue) as 
+                                OrderBy(x => x.RaceDate.Year).
+                                ThenBy(x => x.Won).
+
+                                Sum(x => x.ResultValue);*/
+                //                                Sum(x => x.ResultValue).
+
+                //Select(x => new { Course = x.Key, BetsPlaced = x.Key.Count() }).
+                //OrderByDescending(x => x.BetsPlaced);
+                /*var reportSet = from result in Results                                
+                                group result.Won by result.RaceDate.Year into years
+                                orderby years.Key
+                                select years;*/
 
             }
         }
@@ -287,22 +364,50 @@ namespace HotTipsterCA3
             }
             else
             {
-                var reportSet = from result in Results
+                var reportSet = Results.
+                                GroupBy(x => x.Course).
+                                Select(x => new { Course = x.Key, BetsPlaced = x.Key.Count() }).
+                                OrderByDescending(x  => x.BetsPlaced);
+                var mostPopular = reportSet.First();
+
+                rtbReports.AppendText(
+                    "The most popular course on which tipped bets were places was:" + Environment.NewLine
+                    );
+                rtbReports.AppendText(
+                    "Course Name: " + mostPopular.Course + Environment.NewLine +
+                    "Number of Bets Placed: " + mostPopular.BetsPlaced + Environment.NewLine
+                    );
+                dgvReports.DataSource = reportSet.ToList();
+
+                
+                /*var reportSet = Results.
+                                Select(x => new { Course = x.Course, BetsPlaced = x.Course.Count() }).
+                                OrderByDescending(x => x.BetsPlaced).
+                                First();
+                var reportSet2 = from result in Results
+                                 group result by result.Course into courseGroup
+                                 select new
+                                 {
+                                     Course = courseGroup.Key,
+                                     BetsPlaced = courseGroup.Key.Count()
+                                 } into courseCount
+                                 orderby courseCount.BetsPlaced descending
+                                 select courseCount;
+                var reportSet3 = from cc in reportSet2
+                                 select new
+                                 {
+                                     cc.Course,
+                                     BetsPlaced = 
+                                 }*/
+                //Select(x => new { x.Course, x.Count });
+                //Max(x => x.Count);
+                //ToList();
+                /*var reportSet = from result in Results
                                 
                                 group result by result.Course into courses
                                 
                                 orderby courses.Key
-                                select courses;
-                foreach (var course in reportSet)
-                {
-                    rtbReports.AppendText(course.Key.ToString() + Environment.NewLine);
-                    foreach (var result in course)
-                    {
-                        rtbReports.AppendText(result.ToString() + Environment.NewLine);
-                    }
-                }
-                dgvReports.DataSource = reportSet.ToList();
-
+                                select courses;*/
             }
         }
     }

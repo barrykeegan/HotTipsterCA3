@@ -51,10 +51,14 @@
             this.dgvReports = new System.Windows.Forms.DataGridView();
             this.btnYearSummaries = new System.Windows.Forms.Button();
             this.btnPopularCourse = new System.Windows.Forms.Button();
+            this.btnBiggestWinLoss = new System.Windows.Forms.Button();
+            this.btnTipSuccessRate = new System.Windows.Forms.Button();
+            this.gbxChooseReport = new System.Windows.Forms.GroupBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.gbxAddTipResult.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReports)).BeginInit();
+            this.gbxChooseReport.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -102,7 +106,7 @@
             // 
             this.lblFormTitle.AutoSize = true;
             this.lblFormTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFormTitle.Location = new System.Drawing.Point(294, 23);
+            this.lblFormTitle.Location = new System.Drawing.Point(330, 23);
             this.lblFormTitle.Name = "lblFormTitle";
             this.lblFormTitle.Size = new System.Drawing.Size(292, 42);
             this.lblFormTitle.TabIndex = 1;
@@ -111,7 +115,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(266, 68);
+            this.pictureBox1.Location = new System.Drawing.Point(301, 68);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(353, 296);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -224,9 +228,9 @@
             // 
             // btnDateOrder
             // 
-            this.btnDateOrder.Location = new System.Drawing.Point(24, 341);
+            this.btnDateOrder.Location = new System.Drawing.Point(6, 117);
             this.btnDateOrder.Name = "btnDateOrder";
-            this.btnDateOrder.Size = new System.Drawing.Size(71, 22);
+            this.btnDateOrder.Size = new System.Drawing.Size(125, 22);
             this.btnDateOrder.TabIndex = 5;
             this.btnDateOrder.Text = "Date Order";
             this.btnDateOrder.UseVisualStyleBackColor = true;
@@ -242,9 +246,9 @@
             // 
             // btnYearSummaries
             // 
-            this.btnYearSummaries.Location = new System.Drawing.Point(103, 342);
+            this.btnYearSummaries.Location = new System.Drawing.Point(6, 25);
             this.btnYearSummaries.Name = "btnYearSummaries";
-            this.btnYearSummaries.Size = new System.Drawing.Size(98, 20);
+            this.btnYearSummaries.Size = new System.Drawing.Size(125, 22);
             this.btnYearSummaries.TabIndex = 7;
             this.btnYearSummaries.Text = "Year Summaries";
             this.btnYearSummaries.UseVisualStyleBackColor = true;
@@ -252,23 +256,55 @@
             // 
             // btnPopularCourse
             // 
-            this.btnPopularCourse.Location = new System.Drawing.Point(638, 342);
+            this.btnPopularCourse.Location = new System.Drawing.Point(6, 68);
             this.btnPopularCourse.Name = "btnPopularCourse";
-            this.btnPopularCourse.Size = new System.Drawing.Size(125, 19);
+            this.btnPopularCourse.Size = new System.Drawing.Size(125, 23);
             this.btnPopularCourse.TabIndex = 8;
             this.btnPopularCourse.Text = "Most Popular Course";
             this.btnPopularCourse.UseVisualStyleBackColor = true;
             this.btnPopularCourse.Click += new System.EventHandler(this.btnPopularCourse_Click);
+            // 
+            // btnBiggestWinLoss
+            // 
+            this.btnBiggestWinLoss.Location = new System.Drawing.Point(6, 165);
+            this.btnBiggestWinLoss.Name = "btnBiggestWinLoss";
+            this.btnBiggestWinLoss.Size = new System.Drawing.Size(125, 23);
+            this.btnBiggestWinLoss.TabIndex = 9;
+            this.btnBiggestWinLoss.Text = "Biggest Win/Loss";
+            this.btnBiggestWinLoss.UseVisualStyleBackColor = true;
+            this.btnBiggestWinLoss.Click += new System.EventHandler(this.btnBiggestWinLoss_Click);
+            // 
+            // btnTipSuccessRate
+            // 
+            this.btnTipSuccessRate.Location = new System.Drawing.Point(7, 209);
+            this.btnTipSuccessRate.Name = "btnTipSuccessRate";
+            this.btnTipSuccessRate.Size = new System.Drawing.Size(124, 23);
+            this.btnTipSuccessRate.TabIndex = 10;
+            this.btnTipSuccessRate.Text = "Tip Success Rate";
+            this.btnTipSuccessRate.UseVisualStyleBackColor = true;
+            this.btnTipSuccessRate.Click += new System.EventHandler(this.btnTipSuccessRate_Click);
+            // 
+            // gbxChooseReport
+            // 
+            this.gbxChooseReport.Controls.Add(this.btnYearSummaries);
+            this.gbxChooseReport.Controls.Add(this.btnTipSuccessRate);
+            this.gbxChooseReport.Controls.Add(this.btnPopularCourse);
+            this.gbxChooseReport.Controls.Add(this.btnBiggestWinLoss);
+            this.gbxChooseReport.Controls.Add(this.btnDateOrder);
+            this.gbxChooseReport.Location = new System.Drawing.Point(680, 69);
+            this.gbxChooseReport.Name = "gbxChooseReport";
+            this.gbxChooseReport.Size = new System.Drawing.Size(251, 256);
+            this.gbxChooseReport.TabIndex = 11;
+            this.gbxChooseReport.TabStop = false;
+            this.gbxChooseReport.Text = "Choose Desired Report";
             // 
             // frmHotTipster
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(958, 583);
-            this.Controls.Add(this.btnPopularCourse);
-            this.Controls.Add(this.btnYearSummaries);
+            this.Controls.Add(this.gbxChooseReport);
             this.Controls.Add(this.dgvReports);
-            this.Controls.Add(this.btnDateOrder);
             this.Controls.Add(this.rtbReports);
             this.Controls.Add(this.gbxAddTipResult);
             this.Controls.Add(this.pictureBox1);
@@ -276,13 +312,14 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmHotTipster";
-            this.Text = "Hot Tipsters Tip Tracking App";
+            this.Text = "Hot Tipster\'s Tip Tracking App";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.gbxAddTipResult.ResumeLayout(false);
             this.gbxAddTipResult.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReports)).EndInit();
+            this.gbxChooseReport.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -312,6 +349,9 @@
         private System.Windows.Forms.DataGridView dgvReports;
         private System.Windows.Forms.Button btnYearSummaries;
         private System.Windows.Forms.Button btnPopularCourse;
+        private System.Windows.Forms.Button btnBiggestWinLoss;
+        private System.Windows.Forms.Button btnTipSuccessRate;
+        private System.Windows.Forms.GroupBox gbxChooseReport;
     }
 }
 
